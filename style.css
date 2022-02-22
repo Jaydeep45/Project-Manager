@@ -1,0 +1,21 @@
+span:hover{
+    color: #f87c58;
+}
+a{
+    text-decoration: none;
+    color: #616374;
+    line-height: 4px;
+}
+a:hover{
+    color: #f87c58;
+}
+.navbar:hover{
+    background-color: #11121c;
+    transition: 0.7s;
+}
+#button .btn{
+    color: #e5e5e5;
+}
+#button .btn:hover{
+    color: #f87c58;
+}
