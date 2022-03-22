@@ -45,7 +45,7 @@
 }
 
 
-/* container */
+/* Slider */
 .container{
     margin-top: 40px;
 }
@@ -65,6 +65,14 @@
 }
 .slide1 span{
     line-height: 45px;
+}
+.slide1 h1{
+    color: #e5e5e5;
+    margin-top: 50px;
+}
+.slide1 h1:hover{
+    color: #f87c58;
+    cursor: pointer;
 }
 .single-box .content img{
     height: 300px;
