@@ -1,0 +1,202 @@
+/* css for ome page */
+html{
+    background-color: #333647;
+}
+/* MAIN CONTAINER OF THE PAGE*/ 
+
+.main{
+    background: #333647;
+}
+/* navbar css */
+.navbar {
+    margin-bottom: 0px;
+    border-radius: 0px;
+}
+.navbar-custom{
+    background: #333647;
+}
+button{
+    background-color: #333647;
+    color: #e5e5e5;
+}
+/* for all placeholder */
+::placeholder{
+    color: #fff;
+}
+/* all anchor tags */
+a:link{
+    color: #e5e5e5;
+}
+a:visited{
+    color: #e5e5e5;
+}
+a:hover{
+    color: #e5e5e5;
+}
+a:active{
+    color: #e5e5e5;
+}
+/* first column css */
+.col-md-4{
+    padding-top: 70px;
+    padding-left: 70px;
+}
+/* user information section ---left side of page-- */
+
+.user_info{
+    background: #11121C;
+    border-radius: 20px;
+    padding: 20px;
+    color: #e5e5e5;
+    font-family: 'Roboto';
+    width: 450px;
+}
+/* user icon  */
+.user_icon{
+    text-align: center;
+
+}
+/* input tags for name moblie and email  */
+
+#username,#email,#mobile{
+    color: #e5e5e5;
+    background-color: #11121C;
+    padding: 12px 20px; 
+    border: none;
+    font-size: 18px;
+    width:370px;
+    font-family: 'Roboto';
+
+}
+/* user description  */
+
+#about{
+    color: #e5e5e5;
+    border-radius: 10px;
+    border: none;
+    background-color: #333647;
+    text-align: left;
+    box-sizing: border-box;
+    resize: none;
+    font-size: 15px;
+    font-family: 'Roboto';
+    padding-left: 15px;
+    padding-top: 5px;
+}
+/* skills selection  */
+.skills{
+    color: #e5e5e5;
+    font-style: normal;
+    font-family: 'Roboto';
+}
+/* submit button */
+
+.submit{
+    text-align: center;
+}
+#submit{
+    color: #FFFFFF;
+    background-color: #F87C58;
+    border: none;
+    font-size: 25px;
+    font-family: 'Roboto';
+    border-radius: 20px;
+    font-weight: 600;
+    width: 350px; 
+    height: 45px;
+}
+/* project information ---right side of the page--- */
+
+.project_info{
+    color: #e5e5e5;
+    font-family: 'Roboto';
+    padding-bottom: 20px;
+    font-size: 40px;
+}
+/* for displying "start a new project"  */
+
+#pt1{
+    font-family: 'Roboto';
+    font-weight: bold;
+    font-size: 50px;
+    
+}
+/* project title  */
+#ptitle{
+    color: #e5e5e5;
+    background-color: #11121C;
+    border-radius: 20px;
+    border: 0px;
+    margin: 0px;
+    text-align: center;
+    width: 525px;
+    height: 80px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: bold;
+    font-size: 25px;
+}
+/* project abstract and technologies used */
+#abstract,#tech{
+    color: #e5e5e5;
+    border-radius: 20px;
+    border: none;
+    background-color: #11121C;
+    text-align: left;
+    box-sizing: border-box;
+    resize: none;
+    width: 525px;
+    height: 166px;
+    font-size: 20px;
+    font-family: 'Roboto';
+    padding-left: 15px;
+    padding-top: 15px;
+
+}
+/* selection of files "myFiles" */
+.upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.fbtn {
+    border:none;
+    color: #fff;
+    background: #11121C;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 25px;
+    width: 525px;
+    font-family: 'Roboto';
+
+}
+.upload-btn-wrapper input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+}
+/* start button */
+#start{
+    width: 525px;
+    height: 70px;
+    background: #F87C58;
+    border-radius: 45px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 56px;
+    text-align: center;
+    color: #FFFFFF;
+    border: none;
+    
+}
+/* edit icons */
+.icon1,.icon2,.icon3{
+    margin-top: 5px;
+    margin-left: 10px;
+}

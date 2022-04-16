@@ -1,0 +1,388 @@
+/*CSS FILE FOR PROGRESS PAGE*/
+body{
+    background-color: #333647;
+}
+/* main container of the page*/
+div.container-fluid{
+    background-color: #333647;
+}
+/* first row */
+#row1{
+    height: 150px;
+}
+/* back button */
+button{
+    background-color: #333647;
+    color:#FFFFFF;
+    font: 'Roboto';
+}
+/*  all anchor tags */
+a:link{
+    color: #e5e5e5;
+}
+a:visited{
+    color: #e5e5e5;
+}
+a:hover{
+    color: #e5e5e5;
+}
+a:active{
+    color: #e5e5e5;
+}
+
+/*project title*/
+div.ptitle{
+    width: 100%;
+    height: 120px;
+    font-family: 'Roboto';
+    font-weight: 700;
+    text-align: center;
+    color: #FFFFFF;
+    background: #F87C58;
+    border-radius: 20px;
+}
+h1{
+    padding-top: 30px;
+}
+
+
+/*second row*/
+
+/*detailed progress bar */
+
+.progress-section{
+    text-align: center; 
+    padding: 80px 0px; 
+    background: #333647;
+}
+.progress-section h1{ 
+    margin-bottom:70px; 
+    color:#FFFFFF;
+}
+.progress-bars{ 
+    margin: auto; 
+    background: #FFFFFF; 
+    width: 120px; 
+    height: 120px; 
+    transform: rotate(45deg); 
+    position: relative;
+}
+.progress-bars h2 { 
+    line-height: 120px; 
+    text-align: center; 
+    transform: rotate(-45deg);
+}
+.progress-bars:before{
+    position: absolute; 
+    content: ""; 
+    border: solid 5px #e5e5e5; 
+    border-width: 5px 0px 0px 5px; 
+    width: 30px; 
+    height: 30px; 
+    top: -9px; 
+    left: -9px; 
+    bottom: -9px; 
+    right: -9px; 
+    z-index: 10;
+}
+.progress-bars:after{
+    position: absolute; 
+    content: ""; 
+    border: solid 5px #F87C58; 
+    border-width: 5px 5px 5px 5px; 
+    width: 140px; 
+    height: 140px; 
+    top: -9px; 
+    left: -9px; 
+    bottom: -9px; 
+    right: -9px;
+}
+
+.progress-bars-four{ 
+    margin: auto; 
+    background: #fff; 
+    width: 120px; 
+    height: 120px; 
+    transform: rotate(45deg); 
+    position: relative;
+}
+.progress-bars-four h2{
+    line-height: 120px; 
+    text-align: center; 
+    transform: rotate(-45deg);
+}
+.progress-bars-four:before{
+    position: absolute; 
+    content: ""; 
+    border: solid 5px #e5e5e5; 
+    border-width: 5px 0px 0px 5px; 
+    width: 120px; 
+    height: 120px; 
+    top: -9px; 
+    left: -9px; 
+    bottom: -9px; 
+    right: -9px; 
+    z-index: 10;
+}
+.progress-bars-four:after{
+    position: absolute; 
+    content: ""; 
+    border: solid 5px #F87C58; 
+    border-width: 5px 5px 5px 5px; 
+    width: 140px; 
+    height: 140px; 
+    top: -9px; 
+    left: -9px; 
+    bottom: -9px; 
+    right: -9px;
+}
+.progress-bars-six{ 
+    margin: auto; 
+    background: #fff; 
+    width: 120px; 
+    height: 120px; 
+    transform: rotate(45deg); 
+    position: relative;
+}
+.progress-bars-six h2 { 
+    line-height: 120px; 
+    text-align: center; 
+    transform: rotate(-45deg);
+}
+.progress-bars-six:before{
+    position: absolute; 
+    content: ""; 
+    border: solid 5px #e5e5e5; 
+    border-width: 5px 0px 0px 5px; 
+    width: 90px; 
+    height: 90px; 
+    top: -9px; 
+    left: -9px; 
+    bottom: -9px; 
+    right: -9px; 
+    z-index: 10;
+}
+.progress-bars-six:after{
+    position: absolute; 
+    content: ""; 
+    border: solid 5px #F87C58; 
+    border-width: 5px 5px 5px 5px; 
+    width: 140px; 
+    height: 140px; 
+    top: -9px; 
+    left: -9px; 
+    bottom: -9px;
+    right: -9px;}
+
+
+.progress-bars-seven{ 
+    margin: auto;
+    background: #fff; 
+    width: 120px; 
+    height: 120px; 
+    transform: rotate(45deg); 
+    position: relative;
+}
+.progress-bars-seven h2 { 
+    line-height: 120px; 
+    text-align: center; 
+    transform: rotate(-45deg);
+}
+.progress-bars-seven:before{
+    position: absolute; 
+    content: ""; 
+    border: solid 5px #e5e5e5; 
+    border-width: 5px 0px 0px 5px; 
+    width: 70px; 
+    height: 70px; 
+    top: -9px; 
+    left: -9px; 
+    bottom: -9px; 
+    right: -9px;
+    z-index: 10;
+}
+.progress-bars-seven:after{
+    position: absolute; 
+    content: ""; 
+    border: solid 5px #F87C58; 
+    border-width: 5px 5px 5px 5px; 
+    width: 140px; 
+    height: 140px; 
+    top: -9px; 
+    left: -9px; 
+    bottom: -9px; 
+    right: -9px;
+}
+/*ROW 2 SUB ROW FOR TASK NAME*/
+#row2_2{
+    text-align: center;
+    color: #e5e5e5;
+    font-family: 'Roboto';
+    padding-top: 50px;
+
+}
+
+/*THIRD ROW*/
+
+/* OVERALL PROGRESS BAR */
+#overall_prog{
+    color: #e5e5e5;
+    text-align: center;
+
+}
+
+.circle-wrap {
+    margin: 60px auto;
+    width: 150px;
+    height: 150px;
+    background: #e5e5e5;
+    border-radius: 50%;
+    border: 1px solid #e5e5e5;
+}
+
+.circle-wrap .circle .mask,
+.circle-wrap .circle .fill {
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    border-radius: 50%;
+}
+
+.circle-wrap .circle .mask {
+    clip: rect(0px, 150px, 150px, 75px);
+}
+
+.circle-wrap .inside-circle {
+    width: 122px;
+    height: 122px;
+    border-radius: 50%;
+    background: #333647;
+    line-height: 120px;
+    text-align: center;
+    margin-top: 14px;
+    margin-left: 14px;
+    color: #F87C58;
+    position: absolute;
+    z-index: 100;
+    font-weight: 700;
+    font-size: 2em;
+}
+
+  /* color animation */
+
+  /* 3rd progress bar */
+.mask .fill {
+    clip: rect(0px, 75px, 150px, 0px);
+    background-color: #F87C58;
+}
+.mask.full,
+.circle .fill {
+    animation: fill ease-in-out 5s;
+    transform: rotate(135deg);
+}
+
+@keyframes fill{
+    0% {
+    transform: rotate(0deg);
+    }
+    100% {
+    transform: rotate(135deg);
+    }
+}
+/* download button */
+.download{
+    padding-left: 25%;
+    padding-bottom: 30px;
+}
+#download{
+    color: #e5e5e5;
+    width: 235px;
+    height:63px;
+    background-color: #F87C58;
+    border-radius: 40px;
+    border: none;
+}
+  /*TASK ADD DIVISION */
+div.taskadd{
+    color: #e5e5e5;
+    text-align: center;
+    width: 100%;
+    background: #11121C;
+    border-radius: 40px;
+    height: 388px;
+    padding: 30px;
+
+}
+  /* ADD DELETE DIVISION */
+div.add_del{
+    color: #e5e5e5;
+    text-align: center;
+    width: 100%;
+    background: #11121C;
+    border-radius: 40px;
+    height: 388px;
+    padding: 30px;
+}
+/* text number and add task */
+#taskno,#addt{
+    color: #e5e5e5;
+    width: 230px;
+    height:63px;
+    background: #333647;
+    border-radius: 40px;
+    text-align: center;
+    border: none;
+    margin: none;
+}
+/* upload, add and delete button*/
+#upload,#add,#delete,#download{
+    color: #e5e5e5;
+    width: 235px;
+    height:63px;
+    background-color: #F87C58;
+    border-radius: 40px;
+    text-align: center;
+    border: none;
+}
+/* for all placeholder */
+::placeholder{
+    color: #fff;
+}
+.default-btn {
+    padding-top: 20px;
+}
+
+.upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.fbtn {
+    border:none;
+    color: #fff;
+    background: #333647;
+    width: 230px;
+    height:63px;
+    border-radius: 40px;
+    font-family: 'Roboto';
+
+}
+.upload-btn-wrapper input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+}
+.progress {
+    margin: 110px 0px;
+    height: 40px;
+    border-radius: 50px;
+}
+.progress-bar {
+    line-height: 40px;
+    font-size: 22px;
+    background-image: linear-gradient(to bottom,#11121C 0,#11121C 100%);;
+}

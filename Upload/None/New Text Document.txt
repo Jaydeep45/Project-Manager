@@ -1,0 +1,114 @@
+from bs4 import BeautifulSoup
+import requests
+import pandas as pd
+
+import sys
+
+def parse_options(div):
+    options = {}
+    optionsDiv = div.find_all('br')
+    for i in range(len(optionsDiv)) :
+        options['Option'+str(i+1)] = optionsDiv[i].text
+    return options
+def parse_question(div):
+    question = {}
+    quest = div.find("strong")
+    print(f"Quest is {quest}")
+    question['Question'] = quest.text
+    return question
+
+def get_url(page_no = ""):
+    url = 'https://www.sanfoundry.com/python-questions-answers-variable-names/' 
+    return url
+def gather_information():
+    data = {'Question':[],'Option1':[],'Option2' : [], 'Option3':[], 'Option4':[],'Option5':[],'Option6':[],'Answer':[], 'Description':[]}
+    sampleRow = {'Question':'','Option1':'','Option2' : '', 'Option3':'', 'Option4':'','Option5':'','Option6':'','Answer':'', 'Description':''}
+    df = pd.DataFrame(data)
+    res = requests.get(get_url())
+    markup = res.content
+    soup = BeautifulSoup(markup,'lxml')
+    # questions = list(map(parse_question,soup.find_all('p',class_ ='question')))
+    # print(soup.find_all('p',class_ ='question'))
+
+    options = []
+    answers = []
+    questions = []
+    optionTranslation = {
+        "a":"Option1", "b":"Option2", "c":"Option3", "d":"Option4" ,"e":"Option5", "f":"Option6"  }
+    ans = soup.find_all('div', class_ ='collapseomatic_content')
+    optns = soup.find_all('br')
+    qtns = soup.find_all('p')
+    for i in range(len(soup.find_all('div', class_ ='collapseomatic_content'))):
+        answer = {}
+        option = {}
+        question = {}
+        quest = qtns[i].text
+        optionsDiv = optns[3 + i].find_all('br')
+        answerString = ans[i].find('br').text
+        for j in range(len(optionsDiv)) :
+            option['Option'+str(j+1)] = optionsDiv[j].text
+        if len(optionsDiv) == 2:
+            if answerString.lower().find(optionsDiv[0].text.lower()) >= 0:
+                    answerOption = "a"
+            elif answerString.lower().find(optionsDiv[1].text.lower()) >= 0:
+                    answerOption = "b" 
+            else:
+                anss = answerString.lower().split()
+                if optionsDiv[0].text.lower() in anss:
+                    answerOption = "a"
+                elif optionsDiv[1].text.lower() in anss:
+                    answerOption = "b"
+                else:
+                    answerOption = "e"
+
+
+        else:
+
+            if answerString.lower() == optionsDiv[0].text.lower():
+                answerOption = "a"
+            elif answerString.lower() == optionsDiv[1].text.lower():
+                answerOption = "b"
+            elif answerString.lower() == optionsDiv[2].text.lower():
+                answerOption = "c"
+            elif answerString.lower() == optionsDiv[3].text.lower():
+                answerOption = "d"
+
+            else:
+                if answerString.lower().find(optionsDiv[0].text.lower()) >= 0:
+                    answerOption = "a"
+                elif answerString.lower().find(optionsDiv[1].text.lower()) >= 0:
+                    answerOption = "b"
+                elif answerString.lower().find(optionsDiv[2].text.lower()) >= 0:
+                    answerOption = "c"
+                elif answerString.lower().find(optionsDiv[3].text.lower()) >= 0:
+                    answerOption = "d"
+                else:
+                    answerOption = "e"
+        answer['Answer'] = optionTranslation[answerOption]
+        answer['Description'] = answerString
+        question['Question'] = quest
+        answers.append(answer)
+        options.append(option)
+        questions.append(question)
+        
+        
+    print(len(questions))
+    print(len(options))
+    print(len(answers))
+    numberOfQuestions = min(len(questions),len(options),len(answers))
+    # print(f"Row is {numberOfQuestions}")
+    for i in range(0,numberOfQuestions):
+        row = {**sampleRow,**questions[i], **answers[i], **options[i]}
+        df = df.append(row, ignore_index = True)
+    # print({**sampleRow,**{'Question':'Hello'}})
+    # df = df.append({,**{'Question':'Hello'}}, ignore_index = True)
+    
+    # create dataframe 
+    print(df.head())
+    
+    # save file 
+    df.to_csv('Sanfoundry-variablemcq.csv')
+
+if __name__ == "__main__":
+    gather_information()
+    
