@@ -1,3 +1,11 @@
+<?php 
+    session_start();
+    if(isset($_SESSION['user_email'])) {
+        header('location:home.php');
+    }
+    else {
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,8 +19,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Allura&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/assets/owl.carousel.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <link rel="icon" type="image/x-icon" href="Images/PMB.png">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
     <title>Project Manager</title>
 </head>
 
@@ -38,36 +47,52 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#contactus">Contact Us</a>
+                            
                         </li>
                     </ul>
+                    
                     <div class="mx-2" id="button">
-                        <button class="btn" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
-                        <button class="btn" data-bs-toggle="modal" data-bs-target="#signupModal">SignUp</button>
+                        <button class="btn" data-bs-toggle="modal" data-bs-target="#loginModal">Log In</button>
+                        <button class="btn" data-bs-toggle="modal" data-bs-target="#signupModal">Sign Up</button>
                     </div>
                 </div>
             </div>
         </nav>
+        <?php if(isset($_SESSION['error'])) { ?>
+        <div class="text-center alert alert-danger loginerror" role="alert">
+            <?php 
+                echo $_SESSION['error'];
+                session_unset();
+            ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <?php } ?>
         <!--login Modal -->
         <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content bg-dark text-light">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="loginModalLabel">Login with your account</h5>
+                        <h5 class="modal-title" id="loginModalLabel">Log in to your account</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body" >
-                        <form action="login.php" method="POST">
+                        <form action="login.php" method="POST" id="loginForm">
                             <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                                <div class="form-group">
+                                <label for="exampleInputEmail1" class="form-label control-label">Email</label>
                                 <input name="user_email" type="email" class="form-control bg-dark text-light" id="exampleInputEmail1"
-                                    aria-describedby="emailHelp">
+                                    aria-describedby="emailHelp" required>
+                                </div>
                             </div>
                             <div class="mb-3">
-                                <label for="exampleInputPassword1" class="form-label">Password</label>
-                                <input name="user_psw" type="password" class="form-control bg-dark text-light"
-                                    id="exampleInputPassword1">
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                                    <input name="user_psw" type="password" class="form-control bg-dark text-light"
+                                        id="exampleInputPassword1" required>
+                                </div>
                             </div>
-                            <button type="submit" name="login" class="btn">Login</button>
+                            <div class="mb-3"><a class="link" data-bs-toggle="modal" data-bs-target="#signupModal">Don't have an account?</a></div>
+                            <input type="submit" name="login" class="btn" value="Log in">
                         </form>
                     </div>
                 </div>
@@ -78,34 +103,42 @@
             <div class="modal-dialog">
                 <div class="modal-content bg-dark text-light">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="signupModalLabel">Get a new account</h5>
+                        <h5 class="modal-title" id="signupModalLabel">Create a new Account</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                             ></button>
                     </div>
                     <div class="modal-body">
-                        <form action="signup.php" method="POST">
+                        <form action="signup.php" method="POST" id="SignUp">
                             <div class="mb-3">
-                                <label for="exampleInputPassword1" class="form-label">UserName</label>
-                                <input name="user_name" type="text" class="form-control bg-dark text-light"
-                                >
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1" class="form-label">Name: </label>
+                                    <input name="user_name" type="text" class="form-control bg-dark text-light" required>
+                                </div>
                             </div>
                             <div class="mb-3">
-                                <label for="exampleInputPassword1" class="form-label">Mobile Number</label>
-                                <input name="user_phone" type="tel" maxlength="12" pattern="[7-9]{1}[0-9]{9}" class="form-control bg-dark text-light" required>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Email address</label>
-                                <input name="user_email" type="email" class="form-control bg-dark text-light" id="exampleInputEmail1"
-                                    aria-describedby="emailHelp">
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1" class="form-label">Mobile Number: </label>
+                                    <input name="user_phone" type="tel" maxlength="12" pattern="[7-9]{1}[0-9]{9}" class="form-control bg-dark text-light" required>
+                                </div>
                             </div>
                             <div class="mb-3">
-                                <label for="exampleInputPassword1" class="form-label">Password</label>
-                                <input name="user_psw" type="password" class="form-control bg-dark text-light"
-                                    id="exampleInputPassword1">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1" class="form-label">Email: </label>
+                                    <input name="user_email" type="email" class="form-control bg-dark text-light" id="exampleInputEmail1"
+                                        aria-describedby="emailHelp" required>
+                                </div>
                             </div>
-
-                            <button type="submit" name="signup" class="btn">Create an account</button>
+                            <div class="mb-3">
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1" class="form-label">Password: </label>
+                                    <input name="user_psw" type="password" class="form-control bg-dark text-light"
+                                        id="exampleInputPassword1" required>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <a class="link" data-bs-toggle="modal" data-bs-target="#loginModal">Already have an account?</a>
+                            </div>
+                            <input type="submit" name="signup" class="btn" value="Sign Up">
                         </form>
                     </div>
                 </div>
@@ -222,25 +255,31 @@
             <div class="col" style="margin-left: 20px;text-align: center;">
                 <span>Contact Us</span><br><br>
                 <a href="#">
-                    <h5>email@gmail.com</h5>
+                    <h5><i class="bi bi-envelope-fill"></i> </h5>
                 </a>
                 <a href="#">
-                    <h5>+0-123-456-789</h5>
+                    <h5> <i class="bi bi-telephone"></i> </h5>
                 </a>
                 <a href="#">
-                    <h5>@insta</h5>
+                    <h5> <i class="bi bi-instagram"></i> </h5>
                 </a>
                 <a href="#">
-                    <h5>@twitter</h5>
+                    <h5> <i class="bi bi-twitter"></i> </h5>
                 </a>
             </div>
             <div class="col" id="footer">
                 <span>Write a message</span><br><br>
-                <form action="#">
-                    <input type="text" class="form-control" placeholder="Username"><br>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email address"><br>
-                    <textarea class="form-control" rows="5" id="comment" name="text" placeholder="Comments"></textarea><br>
-                    <input type="submit" id="send" value="Submit">
+                <form action="feedback.php" method="POST" id="contactForm">
+                    <div class="form-group">
+                        <input type="text" name="user_name" class="form-control" placeholder="Name">
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="user_email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email address">
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" name="user_message" rows="5" id="comment" name="text" placeholder="Message"></textarea>
+                    </div>
+                    <input type="submit" id="send" name="contact" value="Send">
                 </form>
             </div>
         </div>
@@ -256,62 +295,11 @@
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js">
     </script>
-    <script>
-        $('.clients-carousel').owlCarousel({
-            loop: true,
-            nav: false,
-            autoplay: true,
-            autoplayTimeout: 4000,
-            animateOut: 'fadeOut',
-            animateIn: 'fadeIn',
-            smartSpeed: 1100,
-            margin: 30,
-            responsive: {
-                0: {
-                    items: 1
-                },
-                768: {
-                    items: 2
-                },
-                991: {
-                    items: 2
-                },
-                1200: {
-                    items: 2
-                },
-                1920: {
-                    items: 2
-                }
-            }
-        });
-        $('.slide-carousel').owlCarousel({
-            loop: true,
-            nav: false,
-            autoplay: true,
-            autoplayTimeout: 4000,
-            animateOut: 'fadeOut',
-            animateIn: 'easeIn',
-            smartSpeed: 1500,
-            margin:  546,
-            responsive: {
-                0: {
-                    items: 1
-                },
-                768: {
-                    items: 2
-                },
-                991: {
-                    items: 2
-                },
-                1200: {
-                    items: 2
-                },
-                1920: {
-                    items: 2
-                }
-            }
-        });
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.min.js"></script>
+    <script src="scrpit.js"></script>
 </body>
 
 </html>
+<?php 
+    }
+?>

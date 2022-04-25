@@ -1,114 +1,193 @@
 <?php
+    include_once "connection.php";
+    $con = Connection::connect();
     session_start();
     if(isset($_SESSION['user_email'])) {
+        $sql = "select * from users where user_email = :uemail";
+        $user_email = $_SESSION['user_email'];
+        $statement = $con->prepare($sql);
+        $statement->execute([
+            ':uemail'=> $user_email
+        ]);
+        $data = $statement->fetch(PDO::FETCH_ASSOC);
+        $skills = explode(" ", $data['user_skills']);
 ?>
+
 <!DOCTYPE html>
-<html>
     <head>
-        <title>Home Page</title>
-        <link rel="stylesheet" href="home_style.css">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <title>home page</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- font awesone link -->
         <script src="https://kit.fontawesome.com/8690d3ba80.js" crossorigin="anonymous"></script>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <!-- css stylesheet link -->
+        <link rel="stylesheet" href="css/home_style.css">
+
         <link rel="icon" type="image/x-icon" href="Images/PMB.png">
     </head>
     <body>
-        <!-- MAIN CONTAINER OF THE PAGE -->
-        <div class="container-fluid"> 
-            <!-- mian row with three columns  -->
-            <div class="row"> 
-                <!-- first column -->
-                <div class="col-md-4">
-                    <!-- division for user information -->
-                    <div class="uinfo"> 
-                        <div class="user_icon"> <!--user icon -->
-                            <i class="fa-solid fa-circle-user fa-6x"></i>&nbsp;
+        <!-- navigation bar -->
+        <nav class="navbar navbar-custom">
+            <div class="container-fluid">
+                <!--all navbar elements-->
+                <ul class="nav navbar-nav navbar-left">
+                    <li>
+                    <!-- see projects  -->
+                    <button type="button" class="btn btn-lg">
+                        <a href="seeprojects.php?id=<?php echo $data['id'] ?>">Projects<span class="glyphicon glyphicon-folder-open nav-icon"></span> </a>
+                    </button>
+                    </li>
+                    <li>
+                        <!-- notification alerts -->
+                        <button type="button" class="btn btn-lg">
+                            <a href="seetasks.php?email=<?php echo $data['user_email'] ?>">Tasks<span class="glyphicon glyphicon-check nav-icon"></span> </a>
+                        </button>
+                        </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <!-- log out -->
+                        <button type="button" class="btn btn-lg">
+                            <a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Log Out</a>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!-- main section of page -->
+        <div class="main">
+            <div class="container-fluid">
+            <?php if(isset($_SESSION['update'])) { ?>
+            <div class="alert alert-success alert-dismissible text-center updated">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                Profile updated successfully!
+            </div>
+            <?php 
+                unset($_SESSION['update']);
+            }?>
+                <!-- main row -->
+                <div class="row">
+                    <div class="col-md-4"> 
+                        <!-- user information on left side of page -->
+                        <div class="user_info">
+                        <!-- user icon -->
+                        <div class="user_icon">
+                            <i class="fa-solid fa-circle-user fa-6x"></i>
                         </div>
-                        <br>
-                        <!-- user name -->
-                        <input type="text" id="name" placeholder="User-Name"><i class="fa-solid fa-square-pen fa-2x"></i>
-                        <br><br>
-                        <!-- email -->
-                        <input type="email" id="email" placeholder="Email"><i class="fa-solid fa-square-pen fa-2x"></i>
-                        <br><br>
-                        <!-- mobile number -->
-                        <input type="tel" id="mobile" placeholder="12-34-56-78-90" maxlength="12" required><i class="fa-solid fa-square-pen fa-2x"></i>
-                        <br>
-                        <!-- form tag for taking user choices -->
-                        <form action="">
-                            <br>
-                            <h4> Would you like to work in a team ?</h4>
-                            <!-- radio button for willingness to work in team or not -->
-                            <input type="radio" id="team" name="team" value="team">
-                            <label for="team"> Yes </label> &emsp;&emsp;&emsp;
-                            <input type="radio" id="noteam" name="team" value="noteam">
-                            <label for="noteam"> No </label>
-                            <br><br>
-                            <!-- user description -->
-                            <label for="about"><h4> Describe Yourself :-</h4></label>
-                            <br>
-                            <textarea name="about" id="about" cols="50" rows="2" placeholder="I am a software engineering....."></textarea>
-                            <br><br>
-                            <!-- skills of user  -->
-                            <h4> Select Skills :- </h4>
-                            <input type="checkbox" id="s1" name="s1">
-                            <label for="html">HTML</label><br>
-                            <input type="checkbox" id="css2" name="css">
-                            <label for="css"> CSS</label><br>
-                            <input type="checkbox" id="bs" name="bs">
-                            <label for="bs"> BOOTSTRAP</label><br>
-                            <input type="checkbox" id="js" name="js">
-                            <label for="js"> JAVA SCRIPT</label><br>
-                            <input type="checkbox" id="php" name="php">
-                            <label for="php"> PHP</label><br>
-                            <br>
-                            <!-- submit button -->
-                            <input type="submit" id="submit">
-                        </form>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                <!-- empty column for space maintenance -->
-                </div>
-                <div class="col-md-6">  <!--third column for project information-->
-                    <!-- division for project information -->
-                    <div class="pinfo">
-                        <h3 id="pt1">Start a new project</h3> 
-                        <br>
-                        <form action="">
-                            <!-- project title -->
-                            <label for="ptitle"><h4> Add Project title :-</h4></label>
-                            <br>
-                            <input type="text" id="ptitle">
-                            <br><br>
-                            <!-- project abstract -->
-                            <label for="abstract"><h4> Project Abstract :-</h4></label>
-                            <br>
-                            <textarea name="abstract" id="abstract" cols="60" rows="4" placeholder="   the project is about....."></textarea>
-                            <br><br>
-                            <!-- technologies used in project -->
-                            <label for="tech"><h4> Technologies used :-</h4></label>
-                            <br>
-                            <textarea name="tech" id="tech" cols="60" rows="4" placeholder="   tech used are..... "></textarea>
-                            <br><br>
-                            <!-- select files option -->
-                            <div class="upload-btn-wrapper">
-                                <button class="fbtn">Upload a file</button>
-                                <input type="file" name="myfile" />
+                        <form action="update.php?id=<?php echo $data['id'] ?>" method="POST">
+                            
+                            <!-- form for user  -->
+                            <div class="form-group">
+                                <div class="email">
+                                    <input type="email" name="user_email" placeholder="Email" readonly  id="email" value="<?php echo $data['user_email'] ?>">
+                                </div>    
+                                <div class="username">
+                                    <input type="text" name="user_name" placeholder="User-Name" readonly  id="username" value="<?php echo $data['user_name'] ?>"/>
+                                    <i class="fa-solid fa-square-pen fa-2x icon1"></i>
+                                </div> 
+                                <!-- mobile number with edit option -->
+                                <div class="mobile">
+                                    <input type="tel" name="user_mobile" placeholder="12-34-56-78-90" readonly  maxlength="10" id="mobile" value="<?php echo $data['user_mobile'] ?>">
+                                    <i class="fa-solid fa-square-pen fa-2x icon3"></i>
+                                </div>
+                                <br>
+                                <!-- option for team work or not -->
+                                <h4>Would you like to work in a team?</h4>
+                                <div class="team">
+                                    <label class="checkbox-inline">
+                                        <input type="radio" id="team" name="user_status" value="1" <?php if($data['user_status'] == 1) { echo "checked"; } ?>> Yes
+                                    </label> 
+                                    <label class="checkbox-inline">
+                                        <input type="radio" id="noteam" name="user_status" value="0" <?php if($data['user_status'] == 0) { echo "checked"; } ?> > No 
+                                    </label>
+                                </div>
+                                <br>
+                                <!-- description of user  -->
+                                <h4>Describe Yourself:</h4>
+                                <div class="about">
+                                    <textarea name="user_desc" id="about" cols="50" rows="2" placeholder="I am a software engineer..."><?php echo $data["user_desc"] ?></textarea>
+                                </div>
+                                <br>
+                                <!--  user skills -->
+                                <h4>Select Skills:</h4>
+                                <div class="skills">
+                                    <input type="checkbox" id="s1" name="skills[]" value="HTML" <?php if(in_array("HTML", $skills)) { echo "checked='checked'"; }?> >
+                                    <label for="html">HTML</label><br>
+                                    <input type="checkbox" id="css2" name="skills[]" value="CSS" <?php if(in_array("CSS", $skills)) { echo "checked='checked'"; }?> >
+                                    <label for="css"> CSS</label><br>
+                                    <input type="checkbox" id="bs" name="skills[]" value="BOOTSTRAP" <?php if(in_array("BOOTSTRAP", $skills)) { echo "checked='checked'"; }?> >
+                                    <label for="bs"> BOOTSTRAP</label><br>
+                                    <input type="checkbox" id="js" name="skills[]" value="JAVASCRIPT" <?php if(in_array("JAVASCRIPT", $skills)) {echo "checked='checked'"; } ?> >
+                                    <label for="js"> JAVASCRIPT</label><br>
+                                    <input type="checkbox" id="php" name="skills[]" value="PHP" <?php if(in_array("PHP", $skills)) {echo "checked='checked'"; } ?> >
+                                    <label for="php"> PHP</label><br>
+                                    <br>
+                                </div>
+                                <!-- submit button -->
+                                <div class="submit">
+                                    <input name="update" type="submit" id="submit" value="Update">
+                                </div>
                             </div>
-                            <!-- upload button -->
-                            <label for="upload"></label>
-                            <br><br>
-                            <input type="button" id="upload" value="Start">
                         </form>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <!--  empty column for space managment -->
+                    </div>
+                    <div class="col-md-6">
+                        <!--  project information --right side of page -->
+                        <div class="project_info">
+                        <h3 id="pt1">Start a new project</h3>
+                        <form action="uploadproject.php?id=<?php echo $data['id']; ?>" method="POST">
+                            <!-- project title -->
+                            <div class="ptitle">
+                                <label for="ptitle"><h4>Project Title:</h4></label><br>
+                                <input name="project_name" type="text" id="ptitle" placeholder="Title" required>
+                            </div>
+                            <!-- project abstract -->
+                            <div class="abstract">
+                                <label for="abstract"><h4>Project Abstract:</h4></label><br>
+                                <textarea name="project_abs" id="abstract" cols="30" rows="10" placeholder=" The project is about......" required></textarea>
+                            </div>
+                            <!-- technologies used in project -->
+                            <div class="tech">
+                                <label for="tech"><h4>Technologies used:</h4></label><br>
+                                <textarea name="project_tech" id="tech" cols="30" rows="10" placeholder=" Technologies required......" required></textarea>
+                            </div>
+                            <!-- start button -->
+                            <div class="start">
+                                <input type="submit" name="upload" id="start" value="Start">
+                            </div>
+                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        <!-- script for edit buttons -->
+        <script>
+            $(function () {
+                $(".icon1").click(function () {
+                    $("#username").removeAttr("readonly");
+                });
+                $(".icon3").click(function () {
+                    $("#mobile").removeAttr("readonly");
+                });
+            });
+        </script> 
     </body>
 </html>
+
 <?php 
     }
     else {

@@ -4,8 +4,8 @@
     session_start();
     header('location:home.php');
     if(isset($_POST['login'])) {
-        $user_email = $_POST['user_email'];
-        $user_password = $_POST['user_psw'];
+        $user_email = trim($_POST['user_email']);
+        $user_password = trim($_POST['user_psw']);
         $sql = "select * from users where user_email = :uemail";
         $statement = $con->prepare($sql);
         $statement->execute([
@@ -15,6 +15,7 @@
         if($statement->rowCount()) {
             $hash_password = $data['user_password'];
             if(!password_verify($user_password, $hash_password)) {
+                $_SESSION['error'] = "Invalid email or password";
                 header('location:index.php');
             }
             else {
@@ -22,6 +23,7 @@
             }
         }
         else {
+            $_SESSION['error'] = "Invalid email or password";
             header('location:index.php');
         }
     }
